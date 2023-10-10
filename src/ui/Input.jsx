@@ -1,9 +1,13 @@
-function Input({ type, placeholder, id }) {
+function Input({ type, placeholder, id, register }) {
   return (
-    <input id={id} placeholder={placeholder} type={type} className="text-grey-dark outline-none" />
+    <input
+      {...register}
+      id={id}
+      placeholder={placeholder}
+      type={type}
+      className="text-grey-dark outline-none"
+    />
   );
 }
-
-
 
 export default Input;

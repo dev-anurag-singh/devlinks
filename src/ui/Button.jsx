@@ -1,6 +1,9 @@
-function Button({ children }) {
+function Button({ children, disabled }) {
   return (
-    <button className="rounded-lg bg-purple py-3 font-bold text-white transition-colors hover:bg-purple-hover disabled:bg-purple-light">
+    <button
+      disabled={disabled}
+      className="rounded-lg bg-purple py-3 font-bold text-white transition-colors hover:bg-purple-hover disabled:bg-purple-light"
+    >
       {children}
     </button>
   );

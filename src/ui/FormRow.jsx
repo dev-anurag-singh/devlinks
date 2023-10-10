@@ -16,7 +16,7 @@ function FormRow({ children, label, icon, error }) {
       >
         {icon}
         {children}
-        {error ? <span className="text-[10px] text-red md:text-sm">Can&apos;t be empty</span> : ''}
+        {error ? <span className="text-[10px] text-red md:text-sm">{error}</span> : ''}
       </div>
     </div>
   );
