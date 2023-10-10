@@ -39,6 +39,7 @@ function LoginForm() {
             validate: (v) => validator.isEmail(v) || 'Please check again',
           })}
           id="email"
+          autoComplete="username"
           type="text"
           placeholder="e.g. alex@email.com"
         />
@@ -55,6 +56,7 @@ function LoginForm() {
               validator.isStrongPassword(v) || 'Please check again',
           })}
           id="password"
+          autoComplete="current-password"
           type="password"
           placeholder="Enter your password"
         />
