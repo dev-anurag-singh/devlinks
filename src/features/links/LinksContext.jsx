@@ -7,9 +7,9 @@ import { useUser } from '../auth/useUser';
 const LinksContext = createContext();
 
 function LinksProvider({ children }) {
-  const { links } = useGetLinks();
-  const { insertLinks } = useInsertLinks();
   const { user } = useUser();
+  const { insertLinks } = useInsertLinks();
+  const { links } = useGetLinks();
 
   const {
     control,
@@ -71,6 +71,7 @@ function LinksProvider({ children }) {
         handleFormSubmit,
         control,
         Controller,
+
         errors,
       }}
     >

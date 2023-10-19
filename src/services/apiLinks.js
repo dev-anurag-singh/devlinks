@@ -21,8 +21,11 @@ export async function insertLinks({ data: links, user_id }) {
   return data;
 }
 
-export async function getLinks() {
-  const { data: links, error } = await supabase.from('links').select('*');
+export async function getLinks(user_id) {
+  const { data: links, error } = await supabase
+    .from('links')
+    .select('*')
+    .eq('user_id', user_id);
 
   if (error) {
     console.log(error);
