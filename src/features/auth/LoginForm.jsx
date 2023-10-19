@@ -61,7 +61,7 @@ function LoginForm() {
           placeholder="Enter your password"
         />
       </FormRow>
-      <Button disabled={isLoading} variation="primary">
+      <Button type="submit" disabled={isLoading}>
         Login
       </Button>
     </form>

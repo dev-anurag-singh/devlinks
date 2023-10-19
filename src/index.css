@@ -1,3 +1,35 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+  @variants responsive {
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* Hide scrollbar for IE, Edge and Firefox */
+    .no-scrollbar {
+      -ms-overflow-style: none; /* IE and Edge */
+      scrollbar-width: none; /* Firefox */
+    }
+  }
+}
+
+a.active {
+  background-color: theme('colors.purple.light');
+  color: theme('colors.purple.DEFAULT');
+}
+
+a.active svg {
+  fill: theme('colors.purple.DEFAULT');
+}
+
+.select-item-active {
+  color: theme('colors.purple.DEFAULT');
+}
+
+.select-item-active {
+  fill: theme('colors.purple.DEFAULT');
+}

@@ -2,10 +2,17 @@ import { Toaster } from 'react-hot-toast';
 import Login from './pages/Login';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import {
+  Navigate,
+  RouterProvider,
+  createBrowserRouter,
+} from 'react-router-dom';
 import Home from './pages/Home';
 import Join from './ui/Join';
 import ProtectedRoute from './ui/ProtectedRoute';
+import AppLayout from './ui/AppLayout';
+import { LinksProvider } from './features/links/LinksContext';
+import Profile from './pages/Profile';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -17,12 +24,24 @@ const queryClient = new QueryClient({
 
 const router = createBrowserRouter([
   {
-    path: '/',
     element: (
       <ProtectedRoute>
-        <Home />
+        <LinksProvider>
+          <AppLayout />
+        </LinksProvider>
       </ProtectedRoute>
     ),
+    children: [
+      {
+        index: true,
+        element: <Navigate replace to="dashboard" />,
+      },
+      {
+        path: 'dashboard',
+        element: <Home />,
+      },
+      { path: 'profile', element: <Profile /> },
+    ],
   },
   {
     path: '/join',
@@ -64,6 +83,7 @@ function App() {
           },
         }}
       />
+
       <RouterProvider router={router} />
     </QueryClientProvider>
   );

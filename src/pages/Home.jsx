@@ -1,5 +1,11 @@
+import Links from '../features/links/Links';
+
 function Home() {
-  return <div>Hello there, I am still working on this</div>;
+  return (
+    <>
+      <Links />
+    </>
+  );
 }
 
 export default Home;

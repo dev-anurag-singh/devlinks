@@ -6,6 +6,7 @@ export default {
       fontSize: {
         heading: ['2rem', '150%'],
         md: ['1.5rem', '150%'],
+        xs: ['.75rem', '150%'],
       },
       boxShadow: {
         input: '0 0 32px 0 rgba(99,60,255,.25)',
@@ -23,9 +24,11 @@ export default {
         DEFAULT: '#737373',
         light: '#FAFAFA',
         border: '#D9D9D9',
+        medium: '#EEEEEE',
       },
       white: '#FFFFFF',
       red: '#FF3939',
+      transparent: 'transparent',
     },
   },
   plugins: [],

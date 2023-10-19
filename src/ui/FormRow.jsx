@@ -1,6 +1,6 @@
 function FormRow({ children, label, icon, error }) {
   return (
-    <div>
+    <div className="">
       <label
         htmlFor={children.props.id}
         className={`text-sm ${error ? 'text-red' : 'text-grey-dark'}`}
@@ -8,15 +8,19 @@ function FormRow({ children, label, icon, error }) {
         {label}
       </label>
       <div
-        className={` ${
+        className={`bg-white ${
           error
             ? 'border-red'
-            : 'focus-within:shadow-input border-grey-border focus-within:border-purple'
+            : 'border-grey-border focus-within:border-purple focus-within:shadow-input'
         } mt-1 grid grid-cols-[16px_minmax(6rem,1fr)_minmax(0,auto)] items-center gap-3.5 rounded-lg border-[1px] px-4 py-3  transition-all `}
       >
         {icon}
         {children}
-        {error ? <span className="text-[10px] text-red md:text-sm">{error}</span> : ''}
+        {error ? (
+          <span className="text-[10px] text-red md:text-sm">{error}</span>
+        ) : (
+          ''
+        )}
       </div>
     </div>
   );
