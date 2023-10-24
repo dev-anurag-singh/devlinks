@@ -1,9 +1,9 @@
 import Button from '../../ui/Button';
 import LinksForm from './LinksForm';
-import { useLinkForm } from './useLinkForm';
+import { useLink } from './LinksContext';
 
 function Links() {
-  const { fields } = useLinkForm();
+  const { disabled } = useLink();
 
   return (
     <>
@@ -20,7 +20,7 @@ function Links() {
         <LinksForm />
       </div>
       <div className="flex flex-col border-t border-grey-border p-5 md:items-end">
-        <Button type="submit" form="links-form" disabled={!fields.length}>
+        <Button type="submit" form="links-form" disabled={disabled}>
           Save
         </Button>
       </div>

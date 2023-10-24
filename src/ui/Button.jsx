@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 function Button({ children, disabled, type, to, onClick, form, variation }) {
   const base =
-    'inline-block rounded-lg py-[10px] px-4 md:px-7 font-semibold transition-colors';
+    'inline-block disabled:cursor-not-allowed rounded-lg py-[10px] px-4 md:px-7 font-semibold transition-colors';
 
   const styles = {
     primary:

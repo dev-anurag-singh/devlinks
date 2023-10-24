@@ -13,6 +13,8 @@ import ProtectedRoute from './ui/ProtectedRoute';
 import AppLayout from './ui/AppLayout';
 import { LinksProvider } from './features/links/LinksContext';
 import Profile from './pages/Profile';
+import { ProfileProvider } from './features/profile/ProfileContext';
+import PageNotFound from './pages/PageNotFound';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -27,7 +29,9 @@ const router = createBrowserRouter([
     element: (
       <ProtectedRoute>
         <LinksProvider>
-          <AppLayout />
+          <ProfileProvider>
+            <AppLayout />
+          </ProfileProvider>
         </LinksProvider>
       </ProtectedRoute>
     ),
@@ -42,6 +46,7 @@ const router = createBrowserRouter([
       },
       { path: 'profile', element: <Profile /> },
     ],
+    errorElement: <PageNotFound />,
   },
   {
     path: '/join',

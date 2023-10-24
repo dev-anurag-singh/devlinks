@@ -1,4 +1,4 @@
-import { createContext, useEffect } from 'react';
+import { createContext, useContext, useEffect } from 'react';
 import { useGetLinks } from './useGetLinks';
 import { useFieldArray, useForm, Controller } from 'react-hook-form';
 import { useInsertLinks } from './useInsertLinks';
@@ -9,7 +9,7 @@ const LinksContext = createContext();
 function LinksProvider({ children }) {
   const { user } = useUser();
   const { insertLinks } = useInsertLinks();
-  const { links } = useGetLinks();
+  const { links, isCreating } = useGetLinks();
 
   const {
     control,
@@ -71,8 +71,8 @@ function LinksProvider({ children }) {
         handleFormSubmit,
         control,
         Controller,
-
         errors,
+        disabled: !fields.length,
       }}
     >
       {children}
@@ -80,4 +80,9 @@ function LinksProvider({ children }) {
   );
 }
 
-export { LinksProvider, LinksContext };
+function useLink() {
+  const context = useContext(LinksContext);
+  return context;
+}
+
+export { LinksProvider, useLink };

@@ -9,7 +9,7 @@ import { getPlaceholder, isCorrectUrl } from '../../util/urlValidator';
 import Button from '../../ui/Button';
 import LinksEmpty from './LinksEmpty';
 import { DevTool } from '@hookform/devtools';
-import { useLinkForm } from './useLinkForm';
+import { useLink } from './LinksContext';
 
 function LinksForm() {
   const {
@@ -25,7 +25,7 @@ function LinksForm() {
     control,
     Controller,
     errors,
-  } = useLinkForm();
+  } = useLink();
 
   return (
     <>
