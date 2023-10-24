@@ -15,6 +15,7 @@ import { LinksProvider } from './features/links/LinksContext';
 import Profile from './pages/Profile';
 import { ProfileProvider } from './features/profile/ProfileContext';
 import PageNotFound from './pages/PageNotFound';
+import Preview from './pages/Preview';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -28,11 +29,11 @@ const router = createBrowserRouter([
   {
     element: (
       <ProtectedRoute>
-        <LinksProvider>
-          <ProfileProvider>
+        <ProfileProvider>
+          <LinksProvider>
             <AppLayout />
-          </ProfileProvider>
-        </LinksProvider>
+          </LinksProvider>
+        </ProfileProvider>
       </ProtectedRoute>
     ),
     children: [
@@ -61,6 +62,10 @@ const router = createBrowserRouter([
         element: <p>Signup</p>,
       },
     ],
+  },
+  {
+    path: '/:id',
+    element: <Preview />,
   },
 ]);
 

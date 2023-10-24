@@ -8,7 +8,6 @@ import Input from '../../ui/Input';
 import { getPlaceholder, isCorrectUrl } from '../../util/urlValidator';
 import Button from '../../ui/Button';
 import LinksEmpty from './LinksEmpty';
-import { DevTool } from '@hookform/devtools';
 import { useLink } from './LinksContext';
 
 function LinksForm() {
@@ -124,7 +123,6 @@ function LinksForm() {
           </Droppable>
         </DragDropContext>
       </form>
-      <DevTool control={control} />
     </>
   );
 }
