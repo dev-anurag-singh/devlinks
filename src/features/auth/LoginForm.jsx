@@ -13,7 +13,12 @@ function LoginForm() {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      email: 'anurag@example.com',
+      password: 'Anurag@7664',
+    },
+  });
 
   const { login, isLoading } = useLogin();
 

@@ -12,7 +12,7 @@ function Login() {
       <LoginForm />
       <div className="mt-6 justify-center gap-1 text-center md:flex">
         <p>Don&apos;t have an account?</p>
-        <a href="/" className="text-purple">
+        <a href="#" className="text-purple">
           Create account
         </a>
       </div>

@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 function Button({ children, disabled, type, to, onClick, form, variation }) {
   const base =
-    'inline-block disabled:cursor-not-allowed rounded-lg py-[10px] px-4 md:px-7 font-semibold transition-colors';
+    'disabled:cursor-not-allowed rounded-lg py-[10px] px-4 md:px-7 font-semibold transition-colors';
 
   const styles = {
     primary:
@@ -17,7 +17,10 @@ function Button({ children, disabled, type, to, onClick, form, variation }) {
 
   if (to) {
     return (
-      <Link to={to} className={styles[variation]}>
+      <Link
+        to={to}
+        className={styles[variation] + ' flex items-center justify-center'}
+      >
         {children}
       </Link>
     );

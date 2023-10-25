@@ -17,7 +17,7 @@ function Header() {
         <LogoFull className="hidden h-8 w-36 md:inline-block" />
       </Link>
       <MainNav />
-      <Button to={`/${id}`} variation="secondary">
+      <Button to={`/preview`} variation="secondary">
         <IconPreview className="md:hidden" />
         <span className="hidden md:inline-block">Preview</span>
       </Button>
