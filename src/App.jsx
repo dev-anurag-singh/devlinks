@@ -8,7 +8,6 @@ import {
   createBrowserRouter,
 } from 'react-router-dom';
 import Home from './pages/Home';
-import Join from './ui/Join';
 import ProtectedRoute from './ui/ProtectedRoute';
 import AppLayout from './ui/AppLayout';
 import { LinksProvider } from './features/links/LinksContext';
@@ -16,6 +15,7 @@ import Profile from './pages/Profile';
 import { ProfileProvider } from './features/profile/ProfileContext';
 import PageNotFound from './pages/PageNotFound';
 import UserPreview from './pages/UserPreview';
+import AuthLayout from './ui/AuthLayout';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -50,8 +50,8 @@ const router = createBrowserRouter([
     errorElement: <PageNotFound />,
   },
   {
-    path: '/join',
-    element: <Join />,
+    path: '/auth',
+    element: <AuthLayout />,
     children: [
       {
         path: 'login',
