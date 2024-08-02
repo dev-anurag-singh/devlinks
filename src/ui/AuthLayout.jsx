@@ -4,7 +4,7 @@ import { useUser } from '../features/auth/useUser';
 import { useEffect } from 'react';
 import Spinner from './Spinner';
 
-function Join() {
+function AuthLayout() {
   const { isAuthenticated, isLoading } = useUser();
   const navigate = useNavigate();
 
@@ -32,4 +32,4 @@ function Join() {
   );
 }
 
-export default Join;
+export default AuthLayout;
