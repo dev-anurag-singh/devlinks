@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import LoginForm from '../features/auth/LoginForm';
 
 function Login() {
@@ -12,9 +13,9 @@ function Login() {
       <LoginForm />
       <div className="mt-6 justify-center gap-1 text-center md:flex">
         <p>Don&apos;t have an account?</p>
-        <a href="#" className="text-purple">
+        <Link to="/auth/signup" className="text-purple">
           Create account
-        </a>
+        </Link>
       </div>
     </>
   );
