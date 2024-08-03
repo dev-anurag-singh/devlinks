@@ -26,6 +26,7 @@ export default {
         border: '#D9D9D9',
         medium: '#EEEEEE',
       },
+      border: '#D9D9D9',
       white: '#FFFFFF',
       red: '#FF3939',
       transparent: 'transparent',
