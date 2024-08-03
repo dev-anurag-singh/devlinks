@@ -16,6 +16,7 @@ import { ProfileProvider } from './features/profile/ProfileContext';
 import PageNotFound from './pages/PageNotFound';
 import UserPreview from './pages/UserPreview';
 import AuthLayout from './ui/AuthLayout';
+import Signup from './pages/Signup';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -59,7 +60,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'signup',
-        element: <p>Signup</p>,
+        element: <Signup />,
       },
     ],
   },
