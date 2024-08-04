@@ -57,7 +57,11 @@ function SignupForm() {
                 <IconMail />
               </FormIcon>
               <FormControl>
-                <Input placeholder="e.g. alex@email.com" {...field} />
+                <Input
+                  disabled={isLoading}
+                  placeholder="e.g. alex@email.com"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -74,6 +78,7 @@ function SignupForm() {
               </FormIcon>
               <FormControl>
                 <Input
+                  disabled={isLoading}
                   type="password"
                   placeholder="At least 8 characters"
                   {...field}
@@ -94,6 +99,7 @@ function SignupForm() {
               </FormIcon>
               <FormControl>
                 <Input
+                  disabled={isLoading}
                   type="password"
                   placeholder="At least 8 characters"
                   {...field}
@@ -104,7 +110,9 @@ function SignupForm() {
           )}
         />
         <div className="flex flex-col">
-          <Button type="submit">Create new account</Button>
+          <Button disabled={isLoading} type="submit">
+            Create new account
+          </Button>
         </div>
       </form>
     </Form>
