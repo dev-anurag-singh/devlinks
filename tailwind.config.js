@@ -10,6 +10,7 @@ export default {
       },
       boxShadow: {
         input: '0 0 32px 0 rgba(99,60,255,.25)',
+        error: '0 0 32px 0 rgba(255, 57, 57, .25)',
       },
     },
     fontFamily: { sans: 'Instrument Sans,sans-serif' },
