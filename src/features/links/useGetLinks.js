@@ -5,10 +5,14 @@ import { useUser } from '../auth/useUser';
 export function useGetLinks() {
   const { user } = useUser();
 
-  const { isLoading, data: links } = useQuery({
+  const {
+    isLoading,
+    data: links,
+    error,
+  } = useQuery({
     queryKey: ['links'],
     queryFn: () => getLinks(user.id),
   });
 
-  return { isLoading, links };
+  return { isLoading, links, error };
 }
