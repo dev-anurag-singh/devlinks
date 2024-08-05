@@ -4,11 +4,11 @@ import Mockup from './Mockup';
 
 function AppLayout() {
   return (
-    <div className="min-h-screen bg-grey-light md:p-6">
+    <div className="container mx-auto md:p-6">
       <Header />
-      <main className="justify-center p-4 md:mt-6 md:p-0 xl:grid xl:grid-cols-[35rem_minmax(0,50.5rem)] xl:grid-rows-1 xl:gap-6">
+      <main className="flex justify-center gap-6 p-4 md:mt-6 md:p-0">
         <Mockup />
-        <div className="rounded-xl bg-white">
+        <div className="flex-grow rounded-xl bg-white">
           <Outlet />
         </div>
       </main>

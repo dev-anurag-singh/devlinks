@@ -47,7 +47,10 @@ const FormItem = ({ className, ...props }) => {
 
   return (
     <FormItemContext.Provider value={{ id }}>
-      <div className={cn('relative space-y-1', className)} {...props} />
+      <div
+        className={cn('relative flex flex-col gap-1', className)}
+        {...props}
+      />
     </FormItemContext.Provider>
   );
 };

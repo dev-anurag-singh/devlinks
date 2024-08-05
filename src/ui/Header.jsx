@@ -11,7 +11,7 @@ function Header() {
     user: { id },
   } = useUser();
   return (
-    <header className="flex items-center justify-between bg-white p-4 pl-6">
+    <header className="flex items-center justify-between bg-white p-4 pl-6 md:rounded-lg">
       <Link to="/">
         <LogoSmall className="md:hidden" />
         <LogoFull className="hidden h-8 w-36 md:inline-block" />
