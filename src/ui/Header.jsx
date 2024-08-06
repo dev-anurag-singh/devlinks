@@ -4,12 +4,8 @@ import IconPreview from '../assets/icons/icon-preview-header.svg?react';
 import Button from './Button';
 import MainNav from './MainNav';
 import { Link } from 'react-router-dom';
-import { useUser } from '../features/auth/useUser';
 
 function Header() {
-  const {
-    user: { id },
-  } = useUser();
   return (
     <header className="flex items-center justify-between bg-white p-4 pl-6 md:rounded-lg">
       <Link to="/">
