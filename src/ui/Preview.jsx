@@ -1,6 +1,6 @@
 import PreviewItem from './PreviewItem';
 
-function Preview({ links, firstName, lastName, email, imageUrl, isLoading }) {
+function Preview({ links, firstName, lastName, email, imageUrl }) {
   return (
     <div className="flex flex-col gap-12">
       <div className="flex flex-col items-center">
@@ -26,27 +26,19 @@ function Preview({ links, firstName, lastName, email, imageUrl, isLoading }) {
           <span className="inline-block h-2 w-20 rounded-full bg-grey-medium"></span>
         )}
       </div>
-      {isLoading ? (
-        <div className="flex flex-col gap-5">
-          <div className="h-[44px] rounded-lg bg-grey-medium"></div>
-          <div className="h-[44px] rounded-lg bg-grey-medium"></div>
-          <div className="h-[44px] rounded-lg bg-grey-medium"></div>
-        </div>
-      ) : (
-        <div className="no-scrollbar flex h-[300px] flex-col gap-5 overflow-y-scroll">
-          {!links.length ? (
-            <>
-              <div className="h-[44px] rounded-lg bg-grey-medium"></div>
-              <div className="h-[44px] rounded-lg bg-grey-medium"></div>
-              <div className="h-[44px] rounded-lg bg-grey-medium"></div>
-              <div className="h-[44px] rounded-lg bg-grey-medium"></div>
-              <div className="h-[44px] rounded-lg bg-grey-medium"></div>
-            </>
-          ) : (
-            links.map((link) => <PreviewItem link={link} key={link.id} />)
-          )}
-        </div>
-      )}
+      <div className="no-scrollbar flex h-[300px] flex-col gap-5 overflow-y-scroll">
+        {!links.length ? (
+          <>
+            <div className="h-[44px] rounded-lg bg-grey-medium"></div>
+            <div className="h-[44px] rounded-lg bg-grey-medium"></div>
+            <div className="h-[44px] rounded-lg bg-grey-medium"></div>
+            <div className="h-[44px] rounded-lg bg-grey-medium"></div>
+            <div className="h-[44px] rounded-lg bg-grey-medium"></div>
+          </>
+        ) : (
+          links.map((link) => <PreviewItem link={link} key={link.id} />)
+        )}
+      </div>
     </div>
   );
 }

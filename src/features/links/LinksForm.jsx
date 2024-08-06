@@ -1,7 +1,13 @@
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import IconLink from '../../assets/icons/icon-link.svg?react';
 import IconDragDrop from '../../assets/icons/icon-drag-and-drop.svg?react';
-import Select from '../../ui/Select';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '../../ui/Select';
 import { options } from '../../util/platformOptions';
 import Input from '../../ui/Input';
 import { getPlaceholder, isCorrectUrl } from '../../util/urlValidator';
@@ -19,27 +25,36 @@ import {
   FormLabel,
   FormMessage,
 } from '../../ui/Form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useEffect } from 'react';
+import { useInsertLinks } from './useInsertLinks';
 
 const formSchema = z.object({
-  platform: z.enum(
-    options.map((option) => option.value),
-    {
-      message: 'Invalid platform',
-    },
-  ),
-  url: z.string({ message: "Can't be empty" }).url(),
+  links: z
+    .object({
+      platform: z.enum(
+        options.map((option) => option.value),
+        {
+          message: 'Invalid platform',
+        },
+      ),
+      url: z.string({ message: "Can't be empty" }).url(),
+    })
+    .refine((data) => isCorrectUrl(data.url, data.platform), {
+      message: `Invalid link`,
+      path: ['url'],
+    })
+    .array(),
 });
 
 function LinksForm() {
+  const { links, setLinks } = useLink();
+  const { insertLinks, isCreating } = useInsertLinks();
+
   const form = useForm({
+    resolver: zodResolver(formSchema),
     defaultValues: {
-      links: [
-        { platform: 'github', url: 'github.com' },
-        { platform: 'github', url: 'github.com' },
-        { platform: 'github', url: 'github.com' },
-        { platform: 'github', url: 'github.com' },
-        { platform: 'github', url: 'github.com' },
-      ],
+      links: links,
     },
   });
 
@@ -48,169 +63,156 @@ function LinksForm() {
     name: 'links',
   });
 
+  useEffect(() => {
+    setLinks(fields);
+  }, [fields, setLinks]);
+
+  const handleDrag = ({ source, destination }) => {
+    if (destination) {
+      move(source.index, destination.index);
+    }
+  };
+
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit((data) => console.log(data))}>
+      <form onSubmit={form.handleSubmit(insertLinks)}>
         <div className="flex flex-col gap-6 px-6 md:px-10">
           {/* Button to add new link to fields array */}
-          <Button variation="secondary">+ Add new link</Button>
+          <Button
+            onClick={() => append({ platform: 'github', url: '' })}
+            variation="secondary"
+          >
+            + Add new link
+          </Button>
           {!fields.length ? (
-            <LinksEmpty />
-          ) : (
-            <div className="custom-scrollbar h-[31rem] space-y-6 overflow-y-auto pb-6 md:h-[34rem]">
-              {fields.map((link, index) => (
-                <div
-                  key={link.id}
-                  className="flex flex-col gap-3 rounded-xl bg-grey-light p-5"
-                >
-                  <div className="flex justify-between">
-                    <div className="flex items-center gap-1 font-bold">
-                      <span className="p-2">
-                        <IconDragDrop />
-                      </span>
-                      <span> Link #{index + 1}</span>
-                    </div>
-                    <button type="button" className="hover:text-purple">
-                      Remove
-                    </button>
-                  </div>
-                  <FormField
-                    control={form.control}
-                    name={`links.${index}.platform`}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Platform</FormLabel>
-                        <FormControl>
-                          <Input placeholder="e.g. alex@email.com" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name={`links.${index}.url`}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Link</FormLabel>
-                        <FormControl>
-                          <Input placeholder="e.g. youtube.com" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-              ))}
+            <div className="md:h-[34rem]">
+              <LinksEmpty />
             </div>
+          ) : (
+            <DragDropContext onDragEnd={handleDrag}>
+              <Droppable droppableId="links-form-box">
+                {(provided) => (
+                  <div
+                    {...provided.droppableProps}
+                    ref={provided.innerRef}
+                    id="links-form-box"
+                    className="custom-scrollbar h-[31rem] space-y-6 overflow-y-auto pb-6 md:h-[34rem]"
+                  >
+                    {fields.map((link, index) => (
+                      <Draggable
+                        key={link.id}
+                        draggableId={link.id}
+                        index={index}
+                      >
+                        {(provided) => (
+                          <div
+                            ref={provided.innerRef}
+                            {...provided.draggableProps}
+                            key={link.id}
+                            className="flex flex-col gap-3 rounded-xl bg-grey-light p-5"
+                          >
+                            <div className="flex justify-between">
+                              <div className="flex items-center gap-1 font-bold">
+                                <span
+                                  {...provided.dragHandleProps}
+                                  className="p-2"
+                                >
+                                  <IconDragDrop />
+                                </span>
+                                <span> Link #{index + 1}</span>
+                              </div>
+                              <button
+                                onClick={() => remove(index)}
+                                type="button"
+                                className="hover:text-purple"
+                              >
+                                Remove
+                              </button>
+                            </div>
+                            <FormField
+                              control={form.control}
+                              name={`links.${index}.platform`}
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>Platform</FormLabel>
+                                  <Select
+                                    disabled={isCreating}
+                                    onValueChange={(value) => {
+                                      field.onChange(value);
+                                      update(
+                                        index,
+                                        form.getValues(`links.${index}`),
+                                      );
+                                    }}
+                                    defaultValue={field.value}
+                                  >
+                                    <FormControl>
+                                      <SelectTrigger>
+                                        <SelectValue placeholder="Select a Platform" />
+                                      </SelectTrigger>
+                                    </FormControl>
+                                    <SelectContent>
+                                      {options.map((option) => (
+                                        <SelectItem
+                                          key={option.value}
+                                          value={option.value}
+                                        >
+                                          <option.icon className="group-data-[state=checked]:fill-purple" />
+                                          {option.label}
+                                        </SelectItem>
+                                      ))}
+                                    </SelectContent>
+                                  </Select>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                            <FormField
+                              control={form.control}
+                              name={`links.${index}.url`}
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>Link</FormLabel>
+                                  <FormIcon>
+                                    <IconLink />
+                                  </FormIcon>
+                                  <FormControl>
+                                    <Input
+                                      disabled={isCreating}
+                                      placeholder={
+                                        'e.g. https://www.' +
+                                        getPlaceholder(
+                                          form.getValues().links[index]
+                                            .platform,
+                                        ) +
+                                        'username'
+                                      }
+                                      {...field}
+                                    />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                          </div>
+                        )}
+                      </Draggable>
+                    ))}
+                    {provided.placeholder}
+                  </div>
+                )}
+              </Droppable>
+            </DragDropContext>
           )}
         </div>
         <div className="flex flex-col border-t border-grey-border p-5 md:items-end">
-          <Button type="submit">Save</Button>
+          <Button disabled={isCreating || !form.formState.isDirty} type="submit">
+            Save
+          </Button>
         </div>
       </form>
     </Form>
   );
-
-  //   return (
-  //     <>
-  //       <form
-  //         onSubmit={handleSubmit((data)=> console.log(data))}
-  //         id="links-form"
-  //         className="mt-10 flex flex-col gap-6  "
-  //       >
-  //         <Button onClick={addLink} variation="secondary">
-  //           + Add new link
-  //         </Button>
-  //         <DragDropContext onDragEnd={reorderLink}>
-  //           <Droppable droppableId="links-form-box">
-  //             {(provided) => (
-  //               <div
-  //                 {...provided.droppableProps}
-  //                 ref={provided.innerRef}
-  //                 id="links-form-box"
-  //                 className="no-scrollbar flex h-[34rem] flex-col gap-6 overflow-y-scroll"
-  //               >
-  //                 {!fields.length ? (
-  //                   <LinksEmpty />
-  //                 ) : (
-  //                   fields.map(({ platform, id }, index) => (
-  //                     <Draggable key={id} draggableId={id} index={index}>
-  //                       {(provided) => (
-  //                         <div
-  //                           ref={provided.innerRef}
-  //                           {...provided.draggableProps}
-  //                           className="flex flex-col gap-3 rounded-xl bg-grey-light p-5 last:mb-10"
-  //                         >
-  //                           <div className="flex justify-between">
-  //                             <div className="flex items-center gap-1 font-bold">
-  //                               <span
-  //                                 {...provided.dragHandleProps}
-  //                                 className="p-2"
-  //                               >
-  //                                 <IconDragDrop />
-  //                               </span>
-  //                               <span> Link #{index + 1}</span>
-  //                             </div>
-  //                             <button
-  //                               type="button"
-  //                               onClick={() => {
-  //                                 removeLink(index);
-  //                               }}
-  //                               className="hover:text-purple"
-  //                             >
-  //                               Remove
-  //                             </button>
-  //                           </div>
-  //                           <div className="flex flex-col gap-1">
-  //                             <span className="text-sm text-grey">Platform</span>
-  //                             <Controller
-  //                               control={control}
-  //                               name={`links.${index}.platform`}
-  //                               rules={{ required: 'Please select a platform' }}
-  //                               render={({ field }) => (
-  //                                 <Select
-  //                                   onChange={(v) => {
-  //                                     field.onChange(v);
-  //                                     update(index, getValues(`links.${index}`));
-  //                                   }}
-  //                                   defaultValue={field.value}
-  //                                   options={options}
-  //                                 />
-  //                               )}
-  //                             />
-  //                           </div>
-  //                           <FormRow
-  //                             label="Link"
-  //                             icon={<IconLink />}
-  //                             error={errors.links?.at(index)?.url?.message}
-  //                           >
-  //                             <Input
-  //                               register={register(`links.${index}.url`, {
-  //                                 required: `Can't be empty`,
-  //                                 validate: (v) =>
-  //                                   isCorrectUrl(v, platform) || 'Invalid url',
-  //                               })}
-  //                               id={`links.${index}.url`}
-  //                               type="text"
-  //                               placeholder={
-  //                                 getPlaceholder(platform) + 'username'
-  //                               }
-  //                             />
-  //                           </FormRow>
-  //                         </div>
-  //                       )}
-  //                     </Draggable>
-  //                   ))
-  //                 )}
-  //                 {provided.placeholder}
-  //               </div>
-  //             )}
-  //           </Droppable>
-  //         </DragDropContext>
-  //       </form>
-  //     </>
-  //   );
 }
 
 export default LinksForm;
