@@ -8,9 +8,9 @@ const Input = React.forwardRef(
       <input
         type={type}
         className={cn(
-          'border-border flex h-12 w-full rounded-lg border bg-transparent pl-11 pr-4 text-base text-grey-dark outline-none transition-colors',
+          'flex h-12 w-full rounded-lg border border-border bg-transparent bg-white pl-11 pr-4 text-base text-grey-dark outline-none transition-colors',
           invalid
-            ? ' focus-visible:shadow-error border-red'
+            ? ' border-red focus-visible:shadow-error'
             : 'focus-visible:border-purple focus-visible:shadow-input',
           className,
         )}
