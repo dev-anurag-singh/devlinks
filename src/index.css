@@ -12,6 +12,13 @@
     background: hsl(231, 73%, 93%);
     border-radius: 10px;
   }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
 }
 
 a.active {
