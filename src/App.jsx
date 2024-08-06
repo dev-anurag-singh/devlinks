@@ -17,6 +17,7 @@ import PageNotFound from './pages/PageNotFound';
 import UserPreview from './pages/UserPreview';
 import AuthLayout from './ui/AuthLayout';
 import Signup from './pages/Signup';
+import ErrorFallBack from './ui/Error';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -48,7 +49,7 @@ const router = createBrowserRouter([
       },
       { path: 'profile', element: <Profile /> },
     ],
-    errorElement: <PageNotFound />,
+    errorElement: <ErrorFallBack />,
   },
   {
     path: '/auth',
@@ -63,6 +64,7 @@ const router = createBrowserRouter([
         element: <Signup />,
       },
     ],
+    errorElement: <ErrorFallBack />,
   },
   {
     path: '/preview',
@@ -71,6 +73,11 @@ const router = createBrowserRouter([
         <UserPreview />
       </ProtectedRoute>
     ),
+    errorElement: <ErrorFallBack />,
+  },
+  {
+    path: '*',
+    element: <PageNotFound />,
   },
 ]);
 
@@ -98,7 +105,6 @@ function App() {
           },
         }}
       />
-
       <RouterProvider router={router} />
     </QueryClientProvider>
   );
