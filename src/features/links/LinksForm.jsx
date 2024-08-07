@@ -206,7 +206,10 @@ function LinksForm() {
           )}
         </div>
         <div className="flex flex-col border-t border-grey-border p-5 md:items-end">
-          <Button disabled={isCreating || !form.formState.isDirty} type="submit">
+          <Button
+            disabled={isCreating || !form.formState.isDirty}
+            type="submit"
+          >
             Save
           </Button>
         </div>
