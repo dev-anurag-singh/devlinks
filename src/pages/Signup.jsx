@@ -8,7 +8,7 @@ function Signup() {
         <h4 className="mb-2 text-md font-bold text-grey-dark md:text-heading">
           Create Account
         </h4>
-        <p>Let`&apos;`s get you started sharing your links!</p>
+        <p>Let&apos;s get you started sharing your links!</p>
       </div>
       <SignupForm />
       <div className="mt-6 justify-center gap-1 text-center md:flex">

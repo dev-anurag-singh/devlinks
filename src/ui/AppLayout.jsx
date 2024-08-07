@@ -5,22 +5,30 @@ import Spinner from './Spinner';
 import { useLink } from '../features/links/LinksContext';
 import { useGetLinks } from '../features/links/useGetLinks';
 import { useEffect } from 'react';
+import { useProfile } from '../features/profile/ProfileContext';
+import { useGetProfile } from '../features/profile/useGetProfile';
 
 function AppLayout() {
   const { links, setLinks } = useLink();
-  const { data, isLoading, error } = useGetLinks();
+  const { profile, setProfile } = useProfile();
+  const { data, error } = useGetLinks();
+  const { data: profileData, error: profileError } = useGetProfile();
 
   useEffect(() => {
     if (data) setLinks(data);
   }, [setLinks, data]);
 
-  if (error) {
+  useEffect(() => {
+    if (profileData) setProfile(profileData);
+  }, [profileData, setProfile]);
+
+  if (error || profileError) {
     throw new Error(error.message);
   }
 
-  // DO NOT SHOW FORM UNTIL LINK IS FETCHED AND UPDATED IN CONTEXT
+  // DO NOT SHOW FORM UNTIL LINKS AND PROFILE IS FETCHED AND UPDATED IN CONTEXT
 
-  if (isLoading || !links) {
+  if (!links || !profile) {
     return (
       <div className="flex h-[100dvh] items-center justify-center">
         <Spinner />
