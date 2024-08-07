@@ -67,12 +67,8 @@ const router = createBrowserRouter([
     errorElement: <ErrorFallBack />,
   },
   {
-    path: '/preview',
-    element: (
-      <ProtectedRoute>
-        <UserPreview />
-      </ProtectedRoute>
-    ),
+    path: '/preview/:id',
+    element: <UserPreview />,
     errorElement: <ErrorFallBack />,
   },
   {
