@@ -41,7 +41,7 @@ _Preview_
 
    ```bash
    git clone https://github.com/dev-anurag-singh/devlinks.git
-   cd ProfileLink
+   cd Devlinks
    ```
 
 2. Install dependencies:
