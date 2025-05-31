@@ -16,7 +16,7 @@ export function useLogin() {
     },
     onError: (err) => {
       console.log('Error', err);
-      toast.error('Provided email or password incorrect');
+      toast.error(err.message);
     },
   });
 

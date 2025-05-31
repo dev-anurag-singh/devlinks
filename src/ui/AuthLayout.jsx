@@ -22,7 +22,7 @@ function AuthLayout() {
 
   return (
     <div className="md:flex md:min-h-screen md:items-center md:justify-center md:bg-grey-light">
-      <main className="flex flex-col gap-16 p-8 md:items-center ">
+      <main className="flex flex-col gap-12 p-8 md:items-center ">
         <LogoFull />
         <div className="md:w-[30rem] md:bg-white md:p-8">
           <Outlet />
