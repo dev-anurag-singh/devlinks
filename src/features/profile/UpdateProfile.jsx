@@ -15,7 +15,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import Button from '../../ui/Button';
 import { Label } from '../../ui/Label';
 import { useUpdateAvatar } from './useUpdateAvatar';
-import { useEffect } from 'react';
 import { useUpdateProfile } from './useUpdateProfile';
 
 const formSchema = z.object({
@@ -100,7 +99,7 @@ function UpdateProfile() {
               name="firstName"
               render={({ field }) => (
                 <FormItem className="md:flex-row md:items-center md:justify-between">
-                  <FormLabel className="md:text-base md:text-grey">
+                  <FormLabel className="min-w-[100px] md:text-base md:text-grey">
                     First Name*
                   </FormLabel>
                   <FormControl>
@@ -127,7 +126,7 @@ function UpdateProfile() {
               name="lastName"
               render={({ field }) => (
                 <FormItem className="md:flex-row md:items-center md:justify-between">
-                  <FormLabel className="md:text-base md:text-grey">
+                  <FormLabel className="md:min-w-[100px] md:text-base md:text-grey">
                     Last Name*
                   </FormLabel>
                   <FormControl>
@@ -154,7 +153,7 @@ function UpdateProfile() {
               name="email"
               render={({ field }) => (
                 <FormItem className="md:flex-row md:items-center md:justify-between">
-                  <FormLabel className="md:text-base md:text-grey">
+                  <FormLabel className="md:min-w-[100px] md:text-base md:text-grey">
                     Email*
                   </FormLabel>
                   <FormControl>
