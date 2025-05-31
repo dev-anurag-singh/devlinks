@@ -73,9 +73,15 @@ function LinksForm() {
     }
   };
 
+  const handleLinksSubmit = (links) => {
+    insertLinks(links, {
+      onSuccess: () => form.reset(links),
+    });
+  };
+
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(insertLinks)}>
+      <form onSubmit={form.handleSubmit(handleLinksSubmit)}>
         <div className="flex flex-col gap-6 px-6 md:px-10">
           {/* Button to add new link to fields array */}
           <Button
@@ -85,7 +91,7 @@ function LinksForm() {
             + Add new link
           </Button>
           {!fields.length ? (
-            <div className="md:h-[34rem]">
+            <div className="md:h-[31rem]">
               <LinksEmpty />
             </div>
           ) : (
@@ -96,7 +102,7 @@ function LinksForm() {
                     {...provided.droppableProps}
                     ref={provided.innerRef}
                     id="links-form-box"
-                    className="custom-scrollbar h-[31rem] space-y-6 overflow-y-auto pb-6 md:h-[34rem]"
+                    className="custom-scrollbar h-[31rem] space-y-6 overflow-y-auto pb-6"
                   >
                     {fields.map((link, index) => (
                       <Draggable
