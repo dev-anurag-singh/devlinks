@@ -52,7 +52,8 @@ _Preview_
 
 3. Set up Supabase:
 
-   Update services/supabase.js with your url and supabase public key
+   - Create a .env file and copy the contents of .env.example
+   - Update the env variables with actual supabase credentials
 
 4. Run the development server:
 
